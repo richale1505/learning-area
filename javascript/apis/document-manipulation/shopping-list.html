@@ -31,7 +31,48 @@
     </ul>
 
     <script>
+      const list = document.querySelector('ul');
+      const input = document.querySelector('#item');
+      const btn = document.querySelector('button');
 
+      function ifBtnClick() {
+        const currentValue = input.value;
+        input.value = '';
+
+        const capitalize = currentValue.at(0).toUpperCase();
+        const lowerCase = currentValue.slice(1).toLowerCase();
+
+        const newList = document.createElement('li');
+        const span = document.createElement('span');
+        const deleteBtn = document.createElement('button');
+
+        newList.appendChild(span);
+        span.textContent = capitalize + lowerCase;
+        newList.appendChild(deleteBtn);
+        deleteBtn.textContent = 'Delete';
+        list.appendChild(newList);
+
+        deleteBtn.addEventListener('click', () => {
+          list.removeChild(newList);
+        });
+      }
+
+      input.addEventListener('focus', (e) => {
+        e.target.style.background = 'green';
+      });
+
+      input.addEventListener('blur', (e) => {
+        e.target.style.background = '';
+      });
+
+      input.focus();
+
+      btn.addEventListener('click', ifBtnClick);
+      window.addEventListener('keydown', (e) => {
+        if (e.keyCode == 13) {
+          ifBtnClick();
+        };
+      });
     </script>
   </body>
 </html>
